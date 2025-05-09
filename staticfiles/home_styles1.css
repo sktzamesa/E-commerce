@@ -1,0 +1,423 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #1a1a1a; /* Dark background */
+    color: #fff; /* Light text color */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+    width: 100%;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-size: 28px; /* Slightly smaller font size */
+    text-decoration: none;
+    color: #ff9900;
+    padding-left: 20px;
+}
+
+.nav {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav li {
+    margin: 0 15px;
+}
+
+/* Accessibility */
+.nav a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    position: relative;
+    padding: 10px 20px; /* Adjusted padding */
+    font-size: 14px; /* Smaller font size */
+    transition: color 0.3s ease; /* Smooth transition for color change */
+
+    /* Enhance contrast for accessibility */
+    background-color: transparent;
+    color: #fff;
+}
+
+.nav a:hover,
+.nav a:focus {
+    color: #ff9900; /* Orange color on hover/focus */
+}
+
+.nav a::after {
+    content: '';
+    height: 2px; /* Thinner underline */
+    width: 0;
+    background: #ff9900; /* Orange color for active/hover state */
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.nav a.active::after,
+.nav a:hover::after {
+    width: 100%;
+}
+
+.banner-area {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: url('weirdobg.jpg') no-repeat center center / cover;
+}
+
+.banner-area::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity here (0.5 is 50% opacity) */
+    z-index: 1; /* Ensure the overlay is behind other content */
+}
+
+.welcome-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    z-index: 2; /* Ensure content is above background */
+}
+
+
+.bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; 
+}
+
+
+
+.welcome-message h1 {
+    font-size: 3.4rem; /* Larger font size */
+    margin-bottom: 10px;
+    color: #fff; /* white */
+}
+
+.welcome-message .brand-name {
+    color: #ff9900; /* orange */
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.welcome-message .tagline {
+    font-size: 1.8rem; /* Larger font size */
+    margin-bottom: 20px;
+}
+
+.welcome-message .btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #ff9900; /* Teal color */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.welcome-message .btn:hover {
+    background-color: #BF6500; /* Darker teal on hover */
+}
+
+.content {
+    text-align: center;
+    padding: 50px 20px; /* Adjusted padding */
+    color: #fff; /* Light text color */
+}
+
+.content h2 {
+    font-size: 32px; /* Slightly smaller font size */
+    margin-bottom: 20px;
+}
+
+.content p {
+    font-size: 16px; /* Smaller font size */
+    line-height: 1.6;
+    max-width: 800px; /* Increased max-width for better readability */
+    margin: 0 auto;
+}
+
+/* Responsive Design */
+/* For tablets and smaller devices */
+@media (max-width: 768px) {
+    /* Adjustments for navbar */
+    .navbar {
+        padding: 10px;
+    }
+    
+    .logo {
+        font-size: 24px;
+    }
+    
+    .nav {
+        flex-direction: column;
+    }
+    
+    .nav li {
+        margin: 10px 0;
+    }
+    
+    .welcome-message h1 {
+        font-size: 2.5rem;
+    }
+    
+    .welcome-message .tagline {
+        font-size: 1.5rem;
+    }
+    
+    .products h2 {
+        font-size: 28px;
+    }
+    
+    .product img {
+        width: 100%; /* Ensures images resize correctly */
+    }
+}
+
+/* For smaller devices like smartphones */
+@media (max-width: 480px) {
+    .welcome-message h1 {
+        font-size: 2rem;
+    }
+    
+    .welcome-message .tagline {
+        font-size: 1.2rem;
+    }
+    
+    .products h2 {
+        font-size: 24px;
+    }
+}
+ /* <- Missing curly brace was added here */
+
+/* Footer .footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark semi-transparent background 
+}
+
+.footer p {
+    margin: 0;
+    color: #fff; /* Light text color */
+}
+*/
+
+.products {
+    text-align: center;
+    padding: 30px 20px; /* Adjusted padding */
+}
+
+.products h2 {
+    font-size: 40px; /* Slightly smaller font size */
+    margin-bottom: 40px; /* Increased margin */
+    color: #ff9900; /* Light text color */
+    margin-right: 40%;
+}
+
+.product-grid {
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    gap: 30px;
+    margin-top: 30px;
+}.additional-content {
+    flex: 1; /* Take remaining space */
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #fff; /* Light text color */
+}
+
+.additional-content h3 {
+    padding-top: 50px;
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #ff9900; /* Orange color */
+}
+
+.why-choose-text p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.additional-content .btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #ff9900; /* Orange button color */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.additional-content .btn:hover {
+    background-color: #BF6500; /* Darker orange on hover */
+}
+
+
+
+.product {
+    max-width: 300px;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.product:hover {
+    transform: translateY(-5px); /* Lift product on hover */
+}
+
+.product img {
+    max-width: 100%; /* Ensures the image doesn't exceed its container's width */
+    height: auto; /* Maintains aspect ratio */
+    border-radius: 5px;
+    margin-bottom: 20px;
+    /* Adjust the dimensions below as per your requirement */
+    width: 250px; /* Adjust the width */
+    height: 250px; /* Adjust the height */
+}
+
+.product h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #ff9900; /* Orange color */
+}
+
+.product p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #fff;
+}
+
+.product .btn {
+    display: inline-block;
+    padding: 10px 30px;
+    background-color: #ff9900; /* Orange button color */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.product .btn:hover {
+    background-color: #BF6500; /* Darker orange on hover */
+}
+
+/*footer*/
+#footer {
+    width: 100%;
+    padding: 100px 0 20px;
+    background: url('https://cdn.pixabay.com/photo/2023/01/13/16/35/background-7716491_1280.png');
+    background-size: cover;
+    position: relative;
+    color: #fff;
+}
+
+.title-text {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.title-text h1 {
+    font-size: 35px;
+    color: #ff9900;
+}
+
+.footer-row {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-left, .footer-right {
+    flex-basis: 45%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.footer-row h1 {
+    margin: 10px 0;
+}
+
+.footer-row p {
+    line-height: 35px;
+}
+
+.social-links {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.social-links a {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    font-size: 20px;
+    line-height: 40px;
+    border: 2px solid #fff;
+    color: #ff9900;
+    margin-left: 20px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.social-links a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+@media screen and (max-width: 770px){
+    .testimonial-col{
+        flex-basis: 100%;
+    }
+}
+@media screen and (max-width: 770px){
+.title-text h1{
+        font-size: 35px;
+    }
+.features {
+    flex-basis: 100%;
+}
+.feature-img img{
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+}

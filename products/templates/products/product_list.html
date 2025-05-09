@@ -1,0 +1,103 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="{% static 'css/home/prodlist.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/x-icon" href="logo.ico">
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'home' %}" class="logo">iSupply</a>
+        <form method="get" action="{% url 'product_list' %}" class="search-bar">
+            <input type="text" name="q" placeholder="Search products...">
+            <button type="submit" class="search-btn"><i class="fa fa-search"></i> Search</button>
+        </form>
+        <ul class="nav">
+            <div class="toggle-switch">
+  <label class="switch-label">
+    <input type="checkbox" class="checkbox">
+    <span class="slider"></span>
+  </label>
+</div>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'product_list' %}">Products</a></li>
+            <li><a href="{% url 'cart_view' %}" class="nav-link">Cart</a></li>
+            <li>
+            {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}?next={{ request.path }}" style="display: inline;">
+    {% csrf_token %}
+    <button type="submit">LOG OUT</button>
+</form>
+            {% else %}
+            <a href="{% url 'login' %}?next={{ request.path }}">Log In</a>
+            {% endif %}
+        </li>
+        </ul>
+    </div>
+    <!-- Content Section -->
+    <div class="content">
+        <ul class="product-list">
+            {% for product in page_obj %}
+                <li class="product-item">
+                    <div class="product-img">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }} Image">
+                        {% else %}
+                            <p>No image available</p>
+                        {% endif %}
+                    </div>
+                    <div class="product-details">
+                        <h2><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></h2>
+                        <p class="highlighted-price">₱ {{ product.price }}</p>
+                        <form action="{% url 'add_to_cart' product.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Add to Cart</button>
+                        </form>
+                    </div>
+                </li>
+            {% empty %}
+                <li>No products found.</li>
+            {% endfor %}
+        </ul>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.querySelector('.checkbox');
+    const body = document.body;
+
+    // Load saved theme
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') {
+        body.classList.add('dark-mode');
+        toggle.checked = true;
+    }
+
+    // Toggle theme
+    toggle.addEventListener('change', () => {
+        body.classList.toggle('dark-mode');
+        localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+    });
+});
+</script>
+</body>
+</html>

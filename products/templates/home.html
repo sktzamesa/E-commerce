@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iSupply</title>
+    <link rel="stylesheet" href="{% static 'css/home_styles1.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/logo.png' %}">
+</head>
+<body>
+<div class="navbar">
+    <a href="{% url 'home' %}" class="logo">iSupply</a>
+    <button class="hamburger-icon" aria-label="Toggle navigation">
+        <i class="fa fa-bars"></i> {# Using Font Awesome for the icon #}
+    </button>
+    <ul class="nav">
+        <li><a href="{% url 'home' %}" class="active">Home</a></li>
+        <li>
+            <a href="{% if user.is_authenticated %}{% url 'product_list' %}{% else %}{% url 'login' %}?next={% url 'product_list' %}{% endif %}">Products</a>
+        </li>
+        <li>
+            {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}?next={{ request.path }}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" style="background: none; border: none; color: inherit; cursor: pointer; font: inherit;">LOG OUT</button>
+            </form>
+            {% else %}
+            <a href="{% url 'login' %}?next={{ request.path }}">Log In</a>
+            {% endif %}
+        </li>
+    </ul>
+</div>
+
+    <div class="banner-area" id="home">
+        <video autoplay muted loop class="bg-image">
+    <source src="{% static 'videos/Phone.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+        <div class="content welcome-message">
+            <h1>Welcome to <span class="brand-name">iSupply</span></h1>
+            <p class="tagline">Discover timeless classics and the latest trends that fit just right and feel amazing.</p>
+            <a href="{% if user.is_authenticated %}{% url 'product_list' %}{% else %}{% url 'login' %}?next={% url 'product_list' %}{% endif %}" class="btn">Shop Now</a>
+        </div>
+    </div>
+
+    <div class="content products">
+        <h2>Features</h2>
+        <div class="product-grid">
+        <div class="product">
+            <img src="{% static 'images/iphone.webp' %}" alt="Product 1">
+            <h3>Spring Collection</h3>
+            <p>Discover sleek designs, fresh colors, and eco-friendly materials in our latest smartphone lineup.</p>
+        </div>
+        <div class="product">
+            <img src="{% static 'images/isupplyphone2.png' %}" alt="Product 2">
+           <h3>Phone Series</h3>
+<p>Explore our latest smartphones featuring cutting-edge design, bold colors, and innovative technology.</p>
+            <a href="https://www.facebook.com/iSupplyTT/" class="btn">Explore iSupply</a>
+        </div>
+        <div class="additional-content">
+            <h3>Why Choose Our Products?</h3>
+            <div class="why-choose-text">
+    <p>At iSupply, we pride ourselves on staying ahead of tech trends and setting new standards in mobile innovation. Our phones combine cutting-edge technology with sleek design, offering devices that not only perform exceptionally but also integrate seamlessly into your daily life. Discover a world where technology meets style.</p>
+</div>
+            <a href="{% if user.is_authenticated %}{% url 'product_list' %}{% else %}{% url 'login' %}?next={% url 'product_list' %}{% endif %}" class="btn">Explore Our Collections</a>
+        </div>
+    </div>
+</div>
+    <section id="footer">
+        <div class="title-text">
+            <h2>OTHERS</h2>
+            <h1>Visit Shop Today</h1>
+        </div>
+        <div class="footer-row">
+            <div class="footer-left">
+                <h1>Opening Hours</h1>
+                <p><i class="fa fa-clock-o"></i> Monday to Friday - 9am to 9pm</p>
+                <p><i class="fa fa-clock-o"></i> Saturday and Sunday - 8am to 8pm</p>
+            </div>
+            <div class="footer-right">
+                <h1>Get In Touch</h1>
+                <p>IMUS, CAVITE <i class="fa fa-map-marker"></i></p>
+                <p>JeffAndreyVisorro@gmail.com <i class="fa fa-envelope"></i></p>
+                <p>0996 804 9262 <i class="fa fa-phone"></i></p>
+            </div>
+        </div>
+        <div class="social-links">
+            <a href="https://www.facebook.com/iSupplyTT/"><i class="fa fa-facebook"></i></a>
+            <a href="https://www.instagram.com/isupplytt/?hl=en"><i class="fa fa-instagram"></i></a>
+            <a href="https://x.com/iSupplyTT/with_replies"><i class="fa fa-twitter"></i></a>
+        </div>
+        <div class="footer1">
+            <p>&copy; 2025 iSupply. All rights reserved.</p>
+        </div>
+    </section>
+<script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the hamburger button and the navigation menu
+            const hamburgerButton = document.querySelector('.hamburger-icon');
+            const navMenu = document.querySelector('.nav');
+
+            // Add an event listener to the hamburger button
+            if (hamburgerButton && navMenu) {
+                hamburgerButton.addEventListener('click', function () {
+                    // Toggle the 'open' class on the navigation menu
+                    navMenu.classList.toggle('open');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!-- cart/cart_detail.html -->
+
+<h1>Your Shopping Cart</h1>
+
+<ul>
+  {% for item in cart_items %}
+    <li>
+      <img src="{{ item.image_url }}" alt="{{ item.name }} image">
+      <h2>{{ item.name }}</h2>
+      <p>Price: ${{ item.price }}</p>
+      <p>Quantity: {{ item.quantity }}</p>
+      <p>Total Price: ${{ item.total_price }}</p>
+    </li>
+  {% empty %}
+    <li>Your cart is empty.</li>
+  {% endfor %}
+</ul>
+
+<p>Total: ${{ total_price }}</p>
+
+<a href="{% url 'product_list' %}">Continue shopping</a>

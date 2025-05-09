@@ -1,0 +1,46 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Order Confirmation{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/logo.jpg' %}">
+    <link rel="stylesheet" href="{% static 'css/cart/test.css' %}">
+</head>
+<body>
+    <div class="order-container">
+        <div class="order-details">
+            <h1>🎉 Order Confirmed! 🎉</h1>
+            <p>Thank you for your purchase! Your order number is <strong class="order-number">#{{ order.id }}</strong>.</p>
+            <p>The total amount for your order is <strong class="total-price">₱{{ order.total_price }}</strong>.</p>
+        </div>
+
+        <div class="order-summary">
+            <h2>Your Order Summary</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.items.all %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="2" class="empty">No items in this order.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{% url 'product_list' %}" class="custom-btn">Continue Shopping</a>
+
+    </div>
+</body>
+</html>
+{% endblock %}

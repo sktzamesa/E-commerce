@@ -1,0 +1,11 @@
+<!-- cart/templates/cart/order_confirmation.html -->
+{% extends "base.html" %}
+
+{% block title %}Order Confirmation{% endblock %}
+
+{% block content %}
+    <h1>Order Confirmation</h1>
+    <p>Thank you for your order! Your order number is {{ order.id }}.</p>
+    <p>Total Price: ${{ order.total_price }}</p>
+    <a href="{% url 'product_list' %}" class="btn btn-primary">Continue Shopping</a>
+{% endblock %}

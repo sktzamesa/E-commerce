@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    {% block title %}Checkout
+{% endblock %}
+</title>
+    {% block content %}
+    <link rel="stylesheet" href="{% static 'css/cart/checkout.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/logo.jpg' %}">
+</head>
+<body>
+    <div class="checkout-container">
+        <div class="checkout-content">
+            <h1 style="color: #605cdd; text-align: center; margin-bottom: 20px;">Checkout</h1>
+            <div class="confirmation-box">
+                <p style="text-align: center; margin-bottom: 20px; font-size: 24px;">Total Price: P{{ total_price }}</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="confirm-button">Confirm Order</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

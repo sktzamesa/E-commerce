@@ -1,0 +1,154 @@
+body {
+    font-family: 'Nunito Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern, readable font */
+    background-color: #f4f6f8; /* Light, clean background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensure full viewport height */
+}
+
+.order-container {
+    background-color: #fff;
+    max-width: 700px; /* Slightly narrower for a more focused look */
+    width: 90%;
+    margin: 40px auto; /* Reduced top/bottom margin */
+    padding: 40px;
+    border-radius: 16px; /* More pronounced rounded corners */
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15); /* Softer, more elevated shadow */
+    transition: transform 0.2s ease-in-out; /* Subtle hover effect */
+}
+
+.order-container:hover {
+    transform: translateY(-4px);
+}
+
+.order-details {
+    text-align: center; /* Center the initial details */
+    margin-bottom: 30px;
+}
+
+.order-details h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #2c3e50; /* Darker, professional color */
+    font-weight: 700; /* Bold heading */
+    letter-spacing: -0.5px;
+}
+
+.order-details p {
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+    color: #546e7a; /* Softer text color */
+    line-height: 1.6;
+}
+
+.order-details strong {
+    color: #3498db; /* Accent color for important info */
+    font-weight: 600;
+}
+
+.order-summary {
+    margin-top: 40px;
+}
+
+.order-summary h2 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ecf0f1; /* Subtle separator */
+    padding-bottom: 10px;
+    text-align: left; /* Align summary heading left */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    border-radius: 8px; /* Rounded corners for the table */
+    overflow: hidden; /* Hide overflow for rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow for the table */
+}
+
+th, td {
+    text-align: left;
+    padding: 14px 20px; /* Increased padding */
+    border-bottom: 1px solid #e0e0e0; /* Lighter border */
+}
+
+th {
+    background-color: #34495e; /* Darker header background */
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase; /* Uppercase for header */
+    font-size: 0.9rem;
+}
+
+td {
+    background-color: #f9f9f9; /* Very light background for cells */
+    color: #333;
+}
+
+/* Stripe effect for table rows */
+tbody tr:nth-child(even) td {
+    background-color: #f2f2f2;
+}
+
+.custom-btn {
+    display: inline-block;
+    margin-top: 30px;
+    background-color: #2ecc71; /* Vibrant success color */
+    color: #fff;
+    padding: 14px 30px; /* Larger padding */
+    border: none;
+    border-radius: 8px; /* More rounded button */
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Button shadow */
+}
+
+.custom-btn:hover {
+    background-color: #27ae60; /* Darker shade on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .order-container {
+        padding: 30px;
+        margin: 20px auto;
+        border-radius: 12px;
+    }
+
+    .order-details h1 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .order-details p {
+        font-size: 1rem;
+    }
+
+    .order-summary h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+    }
+
+    th, td {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+
+    .custom-btn {
+        display: block; /* Full width button on mobile */
+        width: 100%;
+        text-align: center;
+        padding: 12px 24px;
+        font-size: 1rem;
+        margin-top: 20px;
+    }
+}

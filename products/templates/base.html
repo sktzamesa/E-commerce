@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/home/prodlist.css' %}">
+    <link rel="stylesheet" href="{% static 'css/proddetail.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/x-icon" href="logo.ico">
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'home' %}" class="logo">iSupply</a>
+        <form method="get" action="{% url 'product_list' %}" class="search-bar">
+            <input type="text" name="q" placeholder="Search products...">
+            <button type="submit" class="search-btn"><i class="fa fa-search"></i> Search</button>
+        </form>
+        <ul class="nav">
+            <div class="toggle-switch">
+  <label class="switch-label">
+    <input type="checkbox" class="checkbox">
+    <span class="slider"></span>
+  </label>
+</div>  
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'product_list' %}">Products</a></li>
+            <li><a href="{% url 'cart_view' %}" class="nav-link">Cart</a></li>
+            <li>
+            {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}?next={{ request.path }}" style="display: inline;">
+    {% csrf_token %}
+    <button type="submit" style="background: none; border: none; color: inherit; cursor: pointer; font: inherit;">LOG OUT</button>
+</form>
+            {% else %}
+            <a href="{% url 'login' %}?next={{ request.path }}">Log In</a>
+            {% endif %}
+        </li>
+        </ul>
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

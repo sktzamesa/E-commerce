@@ -1,0 +1,344 @@
+{% extends 'base.html' %} {# Assuming you have a base template for overall site structure #}
+{% load static %} {# Load static files if you are serving images or CSS #}
+
+{% block title %}
+    {{ product.name }} - Product Details
+{% endblock %}
+
+{% block content %}
+<style>
+    /* styles.css - Adjusted to match the new image layout */
+
+/* Basic body and container styling */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Light grey background */
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Note: The header/navbar is assumed to be part of your base.html */
+/* Add padding to the body or a main content wrapper if the header is fixed */
+/* For example: body { padding-top: 60px; } if your header is 60px tall and fixed */
+
+
+.container {
+    width: 90%; /* Slightly narrower container */
+    max-width: 1100px; /* Adjusted max width */
+    margin: 150px auto; /* Center the container with more vertical margin */
+    padding: 0;
+    background-color: #fff; /* White background for the content area */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    border-radius: 4px; /* Slightly rounded corners */
+    overflow: hidden; /* Clear floats/margins within */
+}
+
+/* Basic Grid System Adjustment */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    /* Remove negative margins as container padding handles spacing */
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Adjust column widths to favor the image side */
+.col-md-6 {
+    /* Using flex-basis to control initial size */
+    flex: 1 1 60%; /* Image column takes more space */
+    max-width: 60%; /* Max width for the image column */
+    padding: 0; /* Remove padding here */
+    box-sizing: border-box;
+}
+
+.product-details-container.col-md-6 {
+    flex: 1 1 40%; /* Details column takes less space */
+    max-width: 40%; /* Max width for the details column */
+    padding: 30px; /* Add padding inside the details column */
+    box-sizing: border-box;
+}
+
+/* Adjust column behavior for smaller screens */
+@media (max-width: 768px) {
+    .col-md-6,
+    .product-details-container.col-md-6 {
+        flex: 1 1 100%; /* Stack columns on small screens */
+        max-width: 100%;
+        padding: 20px; /* Add padding to stacked columns */
+        margin-bottom: 0; /* Remove bottom margin when stacked */
+    }
+     .product-image-container {
+        padding-bottom: 20px; /* Add space below image when stacked */
+        text-align: center;
+     }
+}
+
+/* Product Detail Page Specific Styles */
+/* No specific styles needed for .product-detail-page div itself,
+   as the .container and .row/.col styles handle the main layout */
+
+
+/* Product Image Styling */
+.product-image-container {
+    /* Flex properties set in .col-md-6 */
+    display: flex; /* Use flexbox to align image */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    background-color: #f8f8f8; /* Light background for image area */
+}
+
+.product-main-image {
+    display: block; /* Remove extra space below image */
+    max-width: 100%;
+    max-height: 600px; /* Limit max height to avoid overly large images */
+    height: auto; /* Maintain aspect ratio */
+    border: none; /* No border */
+    border-radius: 0; /* No border radius */
+    object-fit: contain; /* Ensure the whole image is visible without stretching */
+}
+
+/* Product Details Styling */
+.product-details-container {
+     /* Padding set in the responsive block above */
+     display: flex; /* Use flexbox for vertical alignment of details */
+     flex-direction: column; /* Stack items vertically */
+     justify-content: space-between; /* Distribute space between items */
+     height: 100%; /* Ensure details container takes full height if image is taller */
+}
+
+
+.product-title {
+    font-size: 1.6em; /* Font size closer to the image */
+    margin-top: 0;
+    margin-bottom: 5px; /* Reduced margin */
+    color: #1a1a1a;
+    line-height: 1.3;
+}
+
+.product-price {
+    margin-bottom: 15px; /* Adjusted margin */
+    font-size: 1.4em; /* Slightly larger font size */
+    color: #e44d26;
+    font-weight: bold;
+}
+
+.price-value {
+    /* No extra styling needed */
+}
+
+.product-availability {
+    margin-bottom: 20px; /* Increased margin */
+    font-size: 0.9em;
+    padding: 0; /* Remove padding */
+    border-top: none; /* Remove separator line */
+    border-bottom: 1px solid #eee; /* Keep bottom separator */
+    padding-bottom: 15px; /* Padding below the separator */
+}
+
+.in-stock {
+    color: #28a745;
+    font-weight: normal; /* Normal font weight */
+}
+
+.out-of-stock {
+    color: #dc3545;
+    font-weight: normal; /* Normal font weight */
+}
+
+.not-available {
+    color: #6c757d;
+    font-weight: normal; /* Normal font weight */
+}
+
+
+.product-description {
+    margin-top: 0; /* Remove top margin */
+    margin-bottom: 20px; /* Increased bottom margin */
+    color: #555;
+}
+
+.product-description h2 {
+    font-size: 1.1em; /* Smaller heading */
+    margin-top: 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee; /* Keep bottom separator */
+    padding-bottom: 8px; /* Adjusted padding */
+    color: #1a1a1a;
+}
+
+/* Add to Cart Form Styling */
+.add-to-cart-form {
+    margin-top: auto; /* Push form to the bottom of the flex container */
+    padding-top: 20px;
+    border-top: 1px solid #eee; /* Separator line */
+}
+
+.form-group {
+    margin-bottom: 20px; /* Increased bottom margin */
+    display: flex;
+    align-items: center;
+}
+
+.form-group label {
+    margin-bottom: 0;
+    margin-right: 15px;
+    font-weight: normal;
+    color: #555;
+    flex-shrink: 0; /* Prevent label from shrinking */
+}
+
+.form-control {
+    display: inline-block;
+    width: auto;
+    max-width: 60px; /* Further reduced max width for quantity */
+    padding: 8px 10px; /* Adjusted padding */
+    font-size: 1em;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Button Styling */
+.btn {
+    display: inline-block;
+    font-weight: 500;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 10px 20px;
+    font-size: 1em;
+    line-height: 1.5;
+    border-radius: 4px;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #ff6600; /* Orange primary color like in the image */
+    border-color: #ff6600;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #e65c00; /* Darker hover color */
+    border-color: #cc5200;
+}
+
+/* Secondary button style (for Back to Product List if needed) */
+.btn-secondary {
+     color: #555;
+     background-color: #f8f9fa;
+     border-color: #ced4da;
+ }
+
+ .btn-secondary:hover {
+     color: #333;
+     background-color: #e2e6ea;
+     border-color: #dae0e5;
+ }
+
+
+/* Back Link Styling */
+.back-link {
+    margin-top: 20px; /* Adjusted top margin */
+    padding-top: 15px; /* Adjusted padding */
+    border-top: 1px solid #eee; /* Separator line */
+    text-align: right;
+    font-size: 0.9em;
+}
+
+.back-link a {
+    color: #555; /* Link color */
+    text-decoration: none; /* No underline */
+    border: 1px solid #ccc; /* Border around the link text */
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: inline-block; /* Treat link as a block for padding/border */
+}
+
+.back-link a:hover {
+    text-decoration: underline; /* Underline on hover */
+    color: #333;
+    border-color: #a0a0a0;
+}
+
+/* Utility Classes (matching those used in HTML) */
+/* Kept as they might be used in your base template or other parts */
+.mt-4 {
+    margin-top: 1.5rem !important;
+}
+</style>
+<div class="container product-detail-page"> {# Use a container for layout #}
+    <div class="row"> {# Use a row for a flexbox/grid layout #}
+
+        {# Left Column: Product Image #}
+        <div class="col-md-6 product-image-container"> {# Adjust col-md-6 based on your CSS framework (e.g., Bootstrap) #}
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid product-main-image"> {# Use img-fluid for responsive images #}
+            {% else %}
+                {# Optional: Display a placeholder image if no product image exists #}
+                <img src="{% static 'images/no_image_available.png' %}" alt="No image available" class="img-fluid product-main-image">
+            {% endif %}
+        </div>
+
+        {# Right Column: Product Details and Add to Cart Form #}
+        <div class="col-md-6 product-details-container"> {# Adjust col-md-6 based on your CSS framework #}
+            <h1 class="product-title">{{ product.name }}</h1>
+
+            <div class="product-price">
+                <p>Price: <span class="price-value">${{ product.price|floatformat:2 }}</span></p> {# Format price to 2 decimal places #}
+            </div>
+
+            <div class="product-availability">
+                {% if product.available and product.stock > 0 %}
+                    <p class="in-stock">In Stock ({{ product.stock }} available)</p>
+                {% elif product.available and product.stock == 0 %}
+                    <p class="out-of-stock">Out of Stock</p>
+                {% else %}
+                    <p class="not-available">Currently Not Available</p>
+                {% endif %}
+            </div>
+
+            <div class="product-description">
+                <h2>Description</h2>
+                {% if product.description %}
+                    <p>{{ product.description|linebreaksbr }}</p> {# Render line breaks from the description text #}
+                {% else %}
+                    <p>No description available for this product.</p>
+                {% endif %}
+            </div>
+
+            {# Add to Cart Form #}
+            {% if product.available and product.stock > 0 %}
+                <div class="add-to-cart-form mt-4"> {# Add margin top #}
+                    <form action="{% url 'add_to_cart' product.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group"> {# Use form-group for form styling #}
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" id="quantity" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control d-inline-block w-auto"> {# Set max based on stock #}
+                        </div>
+                        <button type="submit" class="btn btn-primary add-to-cart-button">Add to Cart</button> {# Use button classes for styling #}
+                    </form>
+                </div>
+            {% else %}
+                 <div class="add-to-cart-form mt-4">
+                    <p class="text-danger">This product is not currently available for purchase.</p>
+                 </div>
+            {% endif %}
+
+            <div class="back-link mt-4"> {# Add margin top #}
+                <a href="{% url 'product_list' %}" class="btn btn-secondary">Back to Product List</a> {# Use button classes for styling #}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

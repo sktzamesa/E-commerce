@@ -1,0 +1,16 @@
+<!-- templates/cart/order_detail.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order {{ order.id }}</title>
+</head>
+<body>
+    <h1>Order {{ order.id }}</h1>
+    <ul>
+        {% for item in order.items.all %}
+        <li>{{ item.quantity }} x {{ item.product.name }} - ${{ item.price }}</li>
+        {% endfor %}
+    </ul>
+    <p>Total: ${{ order.total_price }}</p>
+</body>
+</html>

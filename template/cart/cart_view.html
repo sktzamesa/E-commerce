@@ -1,0 +1,50 @@
+<!-- templates/cart/cart_view.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Shopping Cart</title>
+</head>
+<body>
+    <h1>Your Shopping Cart</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Image</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td><img src="{{ item.image_url }}" alt="{{ item.name }}" width="50"></td>
+                <td>{{ item.description }}</td>
+                <td>${{ item.price }}</td>
+                <td>
+                    <form action="{% url 'update_cart' item.product_id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+                <td>${{ item.total_price }}</td>
+                <td>
+                    <form action="{% url 'remove_from_cart' item.product_id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>Total: ${{ total_price }}</p>
+    <a href="{% url 'product_list' %}">Continue Shopping</a>
+    <a href="{% url 'place_order' %}">Place Order</a>
+</body>
+</html>

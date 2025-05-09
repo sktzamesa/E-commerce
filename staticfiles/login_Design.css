@@ -1,0 +1,366 @@
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif; 
+  background-color: #f4f4f4; 
+}
+
+.container {
+  display:flex;
+  height: 100vh; 
+  width: 100%;
+}
+
+  .left-side {
+    width: 60%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    color: white; /* Text color for contrast */
+    padding: 20px;
+    text-align: center;
+    background-color: #5fb15f;
+    background-blend-mode: multiply;
+}
+
+  .bg-image{
+    width: 60%;
+  }
+
+.left-side .content {
+    margin-bottom: 30px; /* Space between content and details */
+}
+
+.left-side .logo {
+    width: 100px; /* Adjust size for better visual alignment */
+    margin-bottom: 15px; /* Space below the logo */
+}
+
+.left-side h1 {
+    font-size: 36px; /* Larger font size for prominence */
+    font-weight: bold;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.left-side .details {
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: center;
+    max-width: 500px; /* Prevent text from stretching too wide */
+}
+
+.left-side .details p {
+    margin: 10px 0; /* Space between paragraphs */
+}
+
+.left-side .details i {
+    margin-right: 10px; /* Space between icons and text */
+}
+
+.left-side button {
+    padding: 12px 20px;
+    background-color: #228B22; /* Matches your theme */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px; /* Space above the button */
+    transition: background-color 0.3s ease;
+}
+
+.left-side button:hover {
+    background-color: #1E5631; /* Darker shade for hover effect */
+}
+
+.right-side {
+  width: 40%;
+  background-color: white; 
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.notice{
+  color: red;
+  text-align: center;
+  font-size: 12px;
+}
+.login-form {
+  display: flex;
+  flex-direction: column; 
+  width: 100%;
+}
+
+.login-form h1{
+  color: #228B22;
+  font-size: 40px;
+  margin: 0; 
+  padding-bottom: 10px; 
+  text-align: center;
+}
+
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  position: relative; 
+}
+
+.login-form button[type="submit"] {
+  padding: 12px 20px;
+  background-color: #228B22; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; 
+}
+
+.login-form button[type="submit"]:hover {
+  background-color: #1E5631; 
+}
+
+.forgotpass {
+  display: flex; /* Align items in a row */
+  align-items: center; /* Vertically center the content */
+  justify-content: space-between; /* Add space between the text and the link */
+}
+
+.forgot_pass {
+  margin-left: 10px; /* Add some space between "Password" and "Forgot Password?" */
+  font-size: 14px; /* Optional: Adjust font size */
+  color: #228B22; /* Link color */
+  text-decoration: none; /* Remove underline */
+}
+
+.forgot_pass:hover {
+  color: #1E5631; /* Hover effect for better user experience */
+}
+
+
+/* Square Radio Button Styling */
+.login-form input[type="radio"] {
+  display: none; /* Hide the default radio button */
+}
+
+.login-form label {
+  display: inline-block;
+  position: relative;
+  width: 40px; /* Adjust width as needed */
+  height: 40px;  /* Adjust height as needed */
+  border: 1px solid #ddd; /* Optional border */
+  background-color: #eee; /* Optional background color */
+  cursor: pointer;
+  margin-bottom: 15px; /* Add margin below the label */
+  text-align: center; /* Center text within the label */
+  line-height: 40px; /* Vertically center text */
+}
+
+
+
+.login-form label::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #228B22; /* Green color for checked state */
+  border-radius: 0; /* Remove rounded corners for a square */
+  opacity: 0;  /* Initially hide the checkmark */
+  transition: opacity 0.2s ease; /* Smooth transition */
+}
+
+.login-form input[type="radio"]:checked + label::before {
+  opacity: 1; /* Show the checkmark when checked */
+}
+
+.login-form label span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+}
+
+.error_message{
+  color: red;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* Adjust for radio and text on the same line */
+.login-form .remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.login-form .remember-me label {
+  margin-left: 10px; /* Add space between radio button and text */
+}
+
+/* Modern look - label on the right */
+.login-form .remember-me {
+  flex-direction:row; /* Reverse the order */
+}
+
+/* Make the paragraph inline with the checkbox */
+.login-form .remember-me p {
+  margin-left: 10px; /* Add some space between checkbox and text */
+  font-size: 14px;
+}
+
+.divider{
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.social_authentication {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 10px; /* Add space between the buttons */
+}
+
+.social_authentication button[type="submit"] {
+  padding: 12px;
+  color: white;
+  background-color: red; /* Optional: Define background color */
+  border: 1px solid #ddd; /* Optional: Add border for visibility */
+  border-radius: 5px; /* Optional: Add rounded corners */
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* .social_authentication button:hover {
+  background-color: #ddd;
+} */
+
+/* .social_authentication i {
+  color: red;
+} */
+
+.no_account {
+display: flex;
+justify-content: center; /* Center the items horizontally */
+align-items: center; /* Center the items vertically */
+margin-top: 10px; /* Add spacing above if needed */
+font-size: 14px; /* Optional: adjust font size for styling */
+}
+
+.no_account p {
+margin: 0; /* Remove default paragraph margin */
+margin-right: 5px; /* Add space between text and link */
+}
+
+.no_account a {
+color: #228B22;
+text-decoration: none;
+}
+
+.no_account a:hover {
+color: #1E5631;
+}
+
+@media (max-width: 600px) {
+  body {
+      overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+
+  .container {
+      flex-direction: column; /* Stack the sections vertically */
+      height: auto; /* Allow height to adjust naturally */
+      width: 100%; /* Ensure the container fits the viewport width */
+      margin: 0; /* Remove unwanted margins */
+      padding: 0; /* Remove extra padding */
+  }
+
+  .left-side, 
+  .right-side {
+      width: 100%; /* Make each section full width */
+      box-sizing: border-box; /* Include padding and border in width */
+      padding: 20px; /* Add padding for content */
+  }
+
+  .left-side .logo {
+    width: 80px; /* Adjust size for better visual alignment */
+    margin-bottom: 15px; /* Space below the logo */
+}
+
+.left-side h1 {
+    font-size: 30px; /* Larger font size for prominence */
+
+}
+
+.left-side .details {
+    font-size: 14px;
+}
+
+
+.left-side button {
+    padding: 12px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 20px; /* Space above the button */
+}
+
+  .right-side {
+      max-width: 400px; /* Set a reasonable maximum width for smaller screens */
+      margin: 0 auto; /* Center the right-side container */
+  }
+
+  .login-form {
+      width: 100%; /* Ensure the form takes up the full width */
+  }
+
+  .login-form input[type="text"],
+  .login-form input[type="password"],
+  .login-form button[type="submit"] {
+      width: 100%; /* Full-width inputs and buttons */
+      max-width: 100%; /* Prevent inputs from overflowing */
+      box-sizing: border-box; /* Include padding and borders in width calculation */
+      padding: 10px; /* Adjust padding for better fit */
+      font-size: 14px; /* Adjust font size for smaller screens */
+  }
+
+  .login-form h1 {
+      font-size: 24px; /* Adjust font size for mobile */
+      text-align: center; /* Center-align the heading */
+  }
+
+  .forgotpass {
+      flex-direction: row; /* Align elements in a row */
+      align-items: center; /* Vertically align elements */
+      justify-content: space-between; /* Add space between the elements */
+      margin-bottom: 12px; /* Optional: Add spacing below */
+      margin-top: 12px;
+    }
+
+  .forgotpass p {
+      margin: 0; /* Remove any default margins */
+  }
+
+  .forgotpass a {
+      margin-left: 10px; /* Add a gap between the text and the anchor link */
+      font-size: 14px; /* Adjust the font size for smaller screens */
+  }
+
+  .remember-me {
+      flex-direction: column; /* Stack checkbox and text vertically */
+      align-items: flex-start; /* Align items to the left */
+      font-size: 12px; /* Smaller font for mobile */
+  }
+}

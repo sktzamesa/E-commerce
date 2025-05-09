@@ -1,0 +1,17 @@
+<!-- templates/cart/order_history.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order History</title>
+</head>
+<body>
+    <h1>Your Orders</h1>
+    <ul>
+        {% for order in orders %}
+        <li>
+            <a href="{% url 'order_detail' order.id %}">Order {{ order.id }} - ${{ order.total_price }} - {{ order.status }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!-- templates/cart/checkout.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+</head>
+<body>
+    <h1>Checkout</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>Total Price: ${{ total_price }}</p>
+        <button type="submit">Confirm Order</button>
+    </form>
+</body>
+</html>

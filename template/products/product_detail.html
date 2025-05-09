@@ -1,0 +1,26 @@
+<!-- templates/products/product_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Assuming you have a CSS file for styles -->
+</head>
+<body>
+    <div class="product-detail">
+        <h1>{{ product.name }}</h1>
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image"> <!-- Assuming 'image' is the field name for the product image -->
+        <div class="product-info">
+            <p><strong>Description:</strong> {{ product.description }}</p>
+            <p><strong>Price:</strong> ${{ product.price }}</p>
+            <p><strong>Category:</strong> {{ product.category }}</p>
+            <p><strong>Created At:</strong> {{ product.created_at }}</p>
+        </div>
+        <div class="product-actions">
+            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Add to Cart</a>
+            <a href="{% url 'product_list' %}" class="btn btn-secondary">Back to Product List</a>
+            <a href="{% url 'product_list' %}" class="btn btn-tertiary">Continue Shopping</a>
+        </div>
+    </div>
+</body>
+</html>

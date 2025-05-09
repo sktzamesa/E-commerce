@@ -1,0 +1,379 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Your Shopping Cart{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/cart/cartview.css' %}">
+    <style>
+/* Order Confirmation and Cart Styles */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.order-container, .cart-container, .content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.cart-table, .order-summary {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.cart-table th, .cart-table td, .order-summary th, .order-summary td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.cart-table th {
+    background-color: #6a00ff;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.cart-table td, .order-summary td {
+    background-color: #f9fafb;
+    color: #333333;
+}
+
+.cart-table img {
+    width: 80px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.cart-summary, .total-price {
+    text-align: right;
+    margin-top: 1.5rem;
+}
+
+.cart-summary h2 {
+    font-size: 1.4rem;
+    color: #6a00ff;
+}
+
+.cart-summary .btn, .custom-btn {
+    background-color: #6a00ff;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.cart-summary .btn:hover, .custom-btn:hover {
+    background-color: #4f00cc;
+}
+
+.feedback p {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-right: 10px;
+}
+
+input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.remove-btn {
+    background-color: #e3342f;
+    color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.remove-btn:hover {
+    background-color: #cc1f1a;
+}
+
+    </style>
+</head>
+<body>
+<section class="content">
+  {% if messages %}
+    <div class="feedback">
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if cart_items %}
+  <div class="cart-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Select</th>
+          <th>Product</th>
+          <th>Image</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart_items %}
+        <tr data-product-id="{{ item.product_id }}">
+          <td><input
+            type="checkbox"
+            name="selected_items"
+            value="{{ item.product_id }}"
+          ></td>
+          <td>{{ item.name }}</td>
+          <td>
+            {% if item.image_url %}
+              <img src="{{ item.image_url }}" alt="{{ item.name }}" style="width:100px; height:auto;"/>
+            {% else %}
+              <p>No Image</p>
+            {% endif %}
+          </td>
+          <td>{{ item.description }}</td>
+          <td>P{{ item.price }}</td>
+          <td>
+            <input class="cart-qty" type="number" min="1" value="{{ item.quantity }}" data-product-id="{{ item.product_id }}">
+          </td>
+          <td class="item-total">P{{ item.total_price }}</td>
+          <td>
+            <button class="remove-btn" data-product-id="{{ item.product_id }}">Remove</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+<div class="cart-summary">
+  <form id="checkout-form" method="post" action="{% url 'checkout' %}">
+    {% csrf_token %}
+
+    <!-- hidden input will hold comma-separated IDs -->
+    <input
+      type="hidden"
+      name="selected_items"
+      id="selected-items-input"
+      value=""
+    >
+
+    <h2>
+      Total Price: P
+      <span id="cart-total">0.00</span>
+    </h2>
+
+    <button
+      id="checkout-btn"
+      class="btn"
+      type="submit"
+      disabled
+    >Proceed to Checkout</button>
+  </form>
+</div>
+
+  {% else %}
+    <p>Your cart is empty. <a href="{% url 'product_list' %}">Continue Shopping</a></p>
+  {% endif %}
+</section>
+
+<script>
+  const csrftoken = document.querySelector('meta[name="csrf-token"]').content;
+
+  // POST helper that surfaces JSON errors
+  async function postJSON(url, data) {
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrftoken,
+      },
+      body: JSON.stringify(data),
+    });
+
+    // try to parse JSON body
+    let payload;
+    try {
+      payload = await resp.json();
+    } catch {
+      throw new Error(`HTTP ${resp.status} – no JSON in response`);
+    }
+
+    // if HTTP error, throw the server-side message
+    if (!resp.ok) {
+      throw new Error(payload.error || `HTTP ${resp.status}`);
+    }
+
+    return payload;
+  }
+
+  // Quantity‐change handler
+  document.querySelectorAll('.cart-qty').forEach(input => {
+    input.addEventListener('change', async () => {
+      const productId = input.dataset.productId;
+      const quantity  = parseInt(input.value, 10) || 1;
+      const url       = `{% url 'update_cart' 0 %}`.replace('/0/', `/${productId}/`);
+
+      try {
+        const data = await postJSON(url, { quantity });
+
+        // update this row's line total
+        const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+        const item = data.cart[productId];
+        row.querySelector('.item-total').textContent =
+          'P' + (parseFloat(item.price) * item.quantity).toFixed(2);
+
+        // update overall total
+        document.getElementById('cart-total').textContent =
+          parseFloat(data.total_price).toFixed(2);
+
+      } catch (err) {
+        // show the real error from the server
+        console.error(err);
+        alert(`Could not update cart: ${err.message}`);
+      }
+    });
+  });
+// Remove‐item handler (now expecting JSON back)
+document.querySelectorAll('.remove-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const productId = btn.dataset.productId;
+    const url       = `{% url 'remove_from_cart' 0 %}`.replace('/0/', `/${productId}/`);
+
+    try {
+      const data = await postJSON(url, {});      // now returns { cart, total_price }
+
+      // remove the row in the table
+      document.querySelector(`tr[data-product-id="${productId}"]`).remove();
+
+      // update the overall total
+      document.getElementById('cart-total').textContent =
+        parseFloat(data.total_price).toFixed(2);
+
+      // Optionally, if cart is now empty:
+      if (Object.keys(data.cart).length === 0) {
+        document.querySelector('.cart-table').innerHTML =
+          '<p>Your cart is empty. <a href="{% url 'product_list' %}">Continue Shopping</a></p>';
+      }
+
+    } catch (err) {
+      console.error(err);
+      alert(`Could not remove item: ${err.message}`);
+    }
+  });
+});
+
+  // … existing postJSON & update/remove handlers …
+
+// New: recalc only checked rows
+function recalcSelectedTotal() {
+  let total = 0;
+  // loop all checked checkboxes
+  document
+    .querySelectorAll('input[name="selected_items"]:checked')
+    .forEach(cb => {
+      const row       = cb.closest('tr');
+      const lineText  = row
+        .querySelector('.item-total')
+        .textContent.replace('P', '');
+      total += parseFloat(lineText) || 0;
+    });
+
+  // update the total display
+  document.getElementById('cart-total').textContent = total.toFixed(2);
+
+  // enable/disable the checkout button
+  const checkoutBtn = document.getElementById('checkout-btn');
+  if (total > 0) {
+    checkoutBtn.removeAttribute('disabled');
+  } else {
+    checkoutBtn.setAttribute('disabled', '');
+  }
+}
+
+// wire checkboxes to recalc
+document
+  .querySelectorAll('input[name="selected_items"]')
+  .forEach(cb => cb.addEventListener('change', recalcSelectedTotal));
+
+// also re-run after any quantity change or removal
+document.querySelectorAll('.cart-qty').forEach(input => {
+  input.addEventListener('change', recalcSelectedTotal);
+});
+document.querySelectorAll('.remove-btn').forEach(btn => {
+  btn.addEventListener('click', recalcSelectedTotal);
+});
+
+// (Optional) Make the checkout button submit only selected IDs
+document.getElementById('checkout-btn').addEventListener('click', () => {
+  const selected = Array.from(
+    document.querySelectorAll('input[name="selected_items"]:checked')
+  ).map(cb => cb.value);
+  // e.g. send via query string
+  window.location = `{% url 'checkout' %}?items=${selected.join(',')}`;
+});
+
+
+  // Before the form submits, pack the selected IDs
+document
+  .getElementById('checkout-form')
+  .addEventListener('submit', function(e) {
+    const selectedIds = Array.from(
+      document.querySelectorAll('input[name="selected_items"]:checked')
+    ).map(cb => cb.value);
+
+    if (selectedIds.length === 0) {
+      // Shouldn't happen because button's disabled, but just in case:
+      e.preventDefault();
+      alert('Please select at least one item.');
+      return;
+    }
+
+    // join into comma list
+    document.getElementById('selected-items-input').value =
+      selectedIds.join(',');
+  });
+
+</script>
+
+
+</body>
+</html>
+{% endblock %}

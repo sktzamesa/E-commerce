@@ -1,0 +1,98 @@
+/* Order Confirmation Styles */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 0;
+}
+
+.order-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.order-details {
+    text-align: center;
+    padding: 1rem 0;
+    background: linear-gradient(135deg, #6a00ff, #a200ff);
+    color: #ffffff;
+    border-radius: 12px 12px 0 0;
+}
+
+.order-details h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.order-details p {
+    font-size: 1rem;
+}
+
+.order-summary {
+    margin-top: 1rem;
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.order-summary h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.order-summary table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.order-summary th, 
+.order-summary td {
+    padding: 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.order-summary th {
+    background-color: #f9fafb;
+}
+
+.order-summary td {
+    font-size: 0.95rem;
+}
+
+.total-price {
+    font-size: 1.2rem;
+    color: #6a00ff;
+    font-weight: bold;
+}
+
+.custom-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 1.5rem;
+    background-color: #6a00ff;
+    color: #ffffff;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.custom-btn:hover {
+    background-color: #4f00cc;
+    text-decoration: none;
+}

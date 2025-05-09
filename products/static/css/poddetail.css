@@ -1,0 +1,207 @@
+/* styles.css */
+
+/* Basic body and container styling */
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+.container {
+    width: 95%;
+    max-width: 1200px; /* Max width for the container */
+    margin: 0 auto; /* Center the container */
+    padding: 20px 0;
+}
+
+/* Basic Grid System (mimicking Bootstrap for .row and .col-md-6) */
+.row {
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+    margin-left: -15px; /* Counteract column padding */
+    margin-right: -15px; /* Counteract column padding */
+}
+
+.col-md-6 {
+    flex: 0 0 50%; /* Each column takes 50% width on medium screens and up */
+    max-width: 50%; /* Max width is 50% */
+    padding-left: 15px; /* Add spacing between columns */
+    padding-right: 15px; /* Add spacing between columns */
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+
+/* Adjust column behavior for smaller screens */
+@media (max-width: 768px) {
+    .col-md-6 {
+        flex: 0 0 100%; /* Stack columns on small screens */
+        max-width: 100%; /* Full width on small screens */
+        padding-left: 0;
+        padding-right: 0;
+        margin-bottom: 20px; /* Add space between stacked columns */
+    }
+}
+
+/* Product Detail Page Specific Styles */
+.product-detail-page {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Product Image Styling */
+.product-image-container {
+    text-align: center; /* Center the image */
+}
+
+.product-main-image {
+    max-width: 100%; /* Ensure image fits within its container */
+    height: auto; /* Maintain aspect ratio */
+    border: 1px solid #ddd; /* Optional border */
+    border-radius: 4px;
+}
+
+/* Product Details Styling */
+.product-details-container {
+    /* No specific styling needed here unless you want a background etc. */
+}
+
+.product-title {
+    font-size: 2em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.product-price {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.price-value {
+    font-weight: bold;
+    color: #e44d26; /* Example price color */
+}
+
+.product-availability {
+    margin-bottom: 15px;
+    font-size: 0.9em;
+}
+
+.in-stock {
+    color: #28a745; /* Green for in stock */
+    font-weight: bold;
+}
+
+.out-of-stock {
+    color: #dc3545; /* Red for out of stock */
+    font-weight: bold;
+}
+
+.not-available {
+    color: #6c757d; /* Grey for not available */
+    font-weight: bold;
+}
+
+
+.product-description {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.product-description h2 {
+    font-size: 1.3em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+/* Add to Cart Form Styling */
+.add-to-cart-form {
+    /* Styling for the form container */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block; /* Label on its own line */
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control {
+    display: block; /* Input takes full width by default */
+    width: 100%; /* Full width */
+    padding: 8px 12px;
+    font-size: 1em;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Adjust width for inline quantity input */
+.form-control.d-inline-block.w-auto {
+    display: inline-block !important; /* Override display block */
+    width: auto !important; /* Adjust width based on content */
+    max-width: 80px; /* Limit width for the quantity input */
+    vertical-align: middle; /* Align with the button */
+    margin-right: 10px; /* Space between input and button */
+}
+
+
+/* Button Styling */
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 8px 16px;
+    font-size: 1em;
+    line-height: 1.5;
+    border-radius: 4px;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff; /* Example primary color */
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #0056b3; /* Darker hover color */
+    border-color: #004085;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d; /* Example secondary color */
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #5a6268; /* Darker hover color */
+    border-color: #545b62;
+}
+
+
+/* Utility Classes (matching those used in HTML) */
+.mt-4 {
+    margin-top: 1.5rem !important; /* Adjust spacing */
+}
